@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BAALI LHOUSSAINE - Développeur Web</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>BAALI LHOUSSAINE</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#accueil" class="nav-link">Accueil</a></li>
+                <li><a href="#apropos" class="nav-link">À propos</a></li>
+                <li><a href="#projets" class="nav-link">Projets</a></li>
+                <li><a href="#articles" class="nav-link">Articles</a></li>
+                <li><a href="#cv" class="nav-link">CV</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Section Accueil -->
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Développeur Web Full Stack</h1>
+                <p class="hero-subtitle">Je partage mes connaissances en développement web et mes projets techniques</p>
+                <p class="hero-description">Passionné par le développement web, je crée des solutions innovantes et
+                    partage mon expertise à travers mes projets et articles.</p>
+                <div class="hero-buttons">
+                    <a href="#projets" class="btn btn-primary">Voir mes projets</a>
+                    <a href="#contact" class="btn btn-secondary">Me contacter</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="photo-carousel">
+                    <div class="carousel-container">
+                        <!-- Slide 1 -->
+                        <div class="carousel-slide active">
+                            <img src="images/im2.jpeg" alt="Photo professionnelle 1">
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="carousel-slide">
+                            <img src="images/im1.jpeg" alt="Photo professionnelle 1">
+                        </div>
+                    </div>
+
+                    <!-- Contrôles -->
+                    <button class="carousel-controls carousel-prev" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-controls carousel-next" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    <!-- Indicateurs -->
+                    <div class="carousel-indicators">
+                        <div class="carousel-indicator active" data-slide="0"></div>
+                        <div class="carousel-indicator" data-slide="1"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Section À propos -->
+    <section id="apropos" class="section">
+        <div class="container">
+            <h2 class="section-title">À propos de moi</h2>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Développeur web passionné avec une expertise en développement full stack, je me spécialise dans
+                        la création d'applications web robustes et performantes. Mon parcours m'a permis d'acquérir une
+                        solide expérience dans les technologies web modernes.</p>
+
+                    <center><h3>Mon parcours</h3></center>
+                    <p>Diplômé en informatique, j'ai développé mes compétences à travers divers projets académiques et
+                        personnels. Mon projet de fin d'étude, un plugin Moodle utilisant l'IA pour générer des QCM,
+                        témoigne de ma capacité à innover et à résoudre des problèmes complexes.</p>
+
+                    <center><h3>Mes objectifs</h3></center>
+                    <p>Je cherche à contribuer à des projets innovants en tant que développeur full stack, tout en
+                        continuant à apprendre et à partager mes connaissances avec la communauté.</p>
+                </div>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Langages de programmation</h4>
+                    <div class="skills">
+                        <div class="skill-icon" title="C#">
+                            <img src="images/Csharp.png" alt="C#" class="custom-icon">
+                        </div>
+                        <div class="skill-icon" title="Java">
+                            <i class="fab fa-java"></i>
+                        </div>
+                        <div class="skill-icon" title="PHP">
+                            <i class="fab fa-php"></i>
+                        </div>
+                        <div class="skill-icon" title="JavaScript">
+                            <i class="fab fa-js"></i>
+                        </div>
+                        <div class="skill-icon" title="C">
+                            <i class="fas fa-c"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Développement Web</h4>
+                    <div class="skills">
+                        <div class="skill-icon" title="HTML">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <div class="skill-icon" title="CSS">
+                            <i class="fab fa-css3-alt"></i>
+                        </div>
+                        <div class="skill-icon" title="Bootstrap">
+                            <i class="fab fa-bootstrap"></i>
+                        </div>
+                        <div class="skill-icon" title="JavaScript">
+                            <i class="fab fa-js"></i>
+                        </div>
+                        <div class="skill-icon" title="PHP">
+                            <i class="fab fa-php"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Base de données</h4>
+                    <div class="skills">
+                        <div class="skill-icon" title="MySQL">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="skill-icon" title="SQL Server">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="skill-icon" title="T-SQL">
+                            <i class="fas fa-table"></i>
+                        </div>
+                        <div class="skill-icon" title="PL/SQL">
+                            <i class="fas fa-database"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Frameworks & plateformes</h4>
+                    <div class="skills">
+                        <div class="skill-icon" title=".NET">
+                            <img src="images/NET.png" alt=".NET" class="custom-icon">
+                        </div>
+                        <div class="skill-icon" title="JEE">
+                            <i class="fab fa-java"></i>
+                        </div>
+                        <div class="skill-icon" title="Moodle">
+                            <img src="images/moodle.png" alt="Moodle" class="custom-icon">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Modélisation</h4>
+                    <div class="skills">
+                        <div class="skill-icon" title="UML">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="skill-icon" title="Merise">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Gestion de projet</h4>
+                    <div class="skills">
+                        <div class="skill-icon" title="GanttProject">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="skill-icon" title="Travail en équipe">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="skill-icon" title="Git/GitHub">
+                            <i class="fab fa-git-alt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Déploiement</h4>
+                    <div class="skills">
+                        <div class="skill-icon" title="Netlify">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="skill-icon" title="WampServer">
+                            <img src="images/wamp.png" alt="WampServer" class="custom-icon">
+                        </div>
+                        <!--<div class="skill-icon" title="Moodle local">
+                            <img src="images/moodle.png" alt="Moodle" class="custom-icon">
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Projets -->
+    <section id="projets" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Mes Projets</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🔹 Application web de gestion des employés</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/BAALI-LHOUSSAINE" class="project-link"><i
+                                    class="fab fa-github"></i></a>
+                            <a href="https://linkedin.com/in/BAALI-LHOUSSAINE" class="project-link"><i
+                                    class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p class="project-description">Système complet de gestion des employés avec opérations CRUD (Create,
+                        Read, Update, Delete) pour une administration efficace des ressources humaines.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">JEE</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">MySQL</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🔹 Application web de réservation des tables</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/BAALI-LHOUSSAINE" class="project-link"><i
+                                    class="fab fa-github"></i></a>
+                            <a href="https://linkedin.com/in/BAALI-LHOUSSAINE" class="project-link"><i
+                                    class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p class="project-description">Plateforme de réservation en ligne pour restaurant avec gestion des
+                        dates, heures, nombre de personnes et disponibilité des tables en temps réel.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">MySQL</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>🔹 Application Desktop de gestion de stock</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/BAALI-LHOUSSAINE" class="project-link"><i
+                                    class="fab fa-github"></i></a>
+                            <a href="https://linkedin.com/in/BAALI-LHOUSSAINE" class="project-link"><i
+                                    class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p class="project-description">Solution complète pour le suivi des produits, gestion des entrées et
+                        sorties, ajout de demandes, avec alertes automatiques pour les niveaux de stock critiques.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">C#</span>
+                        <span class="tech-tag">.NET</span>
+                        <span class="tech-tag">T-SQL</span>
+                        <span class="tech-tag">SQL Server</span>
+                    </div>
+                </div>
+
+                <div class="project-card featured">
+                    <div class="project-header">
+                        <h3>🔹 Plugin Moodle IA - Projet de fin d'étude</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/BAALI-LHOUSSAINE" class="project-link"><i
+                                    class="fab fa-github"></i></a>
+                            <a href="https://linkedin.com/in/BAALI-LHOUSSAINE" class="project-link"><i
+                                    class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <p class="project-description">Plugin Moodle innovant utilisant l'IA pour générer automatiquement
+                        des QCM. Interface double : enseignant (génération, export PDF/Excel, suivi) et étudiant
+                        (passage, résultats). Base de données indépendante avec interface native Moodle.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">SQL</span>
+                        <span class="tech-tag">Moodle</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Articles -->
+    <section id="articles" class="section">
+        <div class="container">
+            <h2 class="section-title">Articles & Blog</h2>
+            <div class="articles-grid">
+                <article class="article-card">
+                    <div class="article-meta">
+                        <span class="article-date">15 Janvier 2025</span>
+                        <span class="article-category">Déploiement</span>
+                    </div>
+                    <h3>Comment j'ai déployé ce site sur Netlify</h3>
+                    <p>Guide complet pour déployer un site web statique sur Netlify avec intégration Git et formulaires
+                        de contact.</p>
+                    <a href="" class="read-more">Lire l'article →</a>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-meta">
+                        <span class="article-date">10 Janvier 2025</span>
+                        <span class="article-category">Projet</span>
+                    </div>
+                    <h3>Présentation de mon plugin Moodle IA (PFE)</h3>
+                    <p>Retour d'expérience sur le développement d'un plugin Moodle utilisant l'IA pour générer des QCM
+                        automatiquement.</p>
+                    <a href="" class="read-more">Lire l'article →</a>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-meta">
+                        <span class="article-date">5 Janvier 2025</span>
+                        <span class="article-category">Tutoriel</span>
+                    </div>
+                    <h3>Gérer un CRUD en PHP/MySQL</h3>
+                    <p>Tutoriel détaillé pour créer un système CRUD complet avec PHP et MySQL, bonnes pratiques
+                        incluses.</p>
+                    <a href="" class="read-more">Lire l'article →</a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section CV -->
+    <section id="cv" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Mon CV</h2>
+            <div class="cv-content">
+                <div class="cv-preview">
+                    <div class="cv-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="cv-info">
+                        <h3>Curriculum Vitae</h3>
+                        <p>Téléchargez mon CV complet au format PDF pour découvrir mon parcours détaillé, mes
+                            expériences et mes compétences.</p>
+                    </div>
+                </div>
+                <a href="CV.pdf" download class="btn btn-primary">
+                    <i class="fas fa-download"></i> Télécharger mon CV
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Me Contacter</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Parlons de vos projets</h3>
+                    <p>N'hésitez pas à me contacter pour discuter de vos projets ou pour toute collaboration. Je serais
+                        ravi d'échanger avec vous.</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <span>baalilhoussaine1@gmail.com</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <span>+212 6 07 92 62 54</span>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fab fa-linkedin"></i>
+                            <span>linkedin.com/in/baali-lhoussaine</span>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" name="contact" method="POST" data-netlify="true">
+                    <input type="hidden" name="form-name" value="contact">
+                    <div class="form-group">
+                        <label for="name">Nom *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Sujet *</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Envoyer le message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>BAALI LHOUSSAINE</h3>
+                    <p>Développeur Web Full Stack</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://linkedin.com/in/BAALI-LHOUSSAINE" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/BAALI-LHOUSSAINE" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                <div class="footer-contact">
+                    <p>baalilhoussaine1@gmail.com</p>
+                    <p>+212 6 07 92 62 54</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BAALI LHOUSSAINE. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

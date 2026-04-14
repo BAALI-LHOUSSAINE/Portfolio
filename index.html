@@ -29,7 +29,8 @@
             <li><a href="#apropos" class="nav-link"><span class="nav-num">02.</span>À Propos</a></li>
             <li><a href="#projets" class="nav-link"><span class="nav-num">03.</span>Projets</a></li>
             <li><a href="#cv" class="nav-link"><span class="nav-num">04.</span>CV</a></li>
-            <li><a href="#contact" class="nav-link"><span class="nav-num">05.</span>Contact</a></li>
+            <li><a href="#articles" class="nav-link"><span class="nav-num">05.</span>Articles</a></li>
+            <li><a href="#contact" class="nav-link"><span class="nav-num">06.</span>Contact</a></li>
         </ul>
         <div class="hamburger">
             <span></span>
@@ -151,6 +152,7 @@
                         <div class="skill-chip" title="PHP"><i class="fab fa-php"></i><span>PHP</span></div>
                         <div class="skill-chip" title="JavaScript"><i class="fab fa-js"></i><span>JS</span></div>
                         <div class="skill-chip" title="C"><i class="fas fa-c"></i><span>C</span></div>
+                        <div class="skill-chip" title="R"><i class="fas fa-chart-bar"></i><span>R</span></div>
                     </div>
                 </div>
 
@@ -333,7 +335,7 @@
                 <div class="tl-card">
                     <div class="tl-year">2025 – En cours</div>
                     <h3>Master — Cryptologie & Sécurité Informatique</h3>
-                    <div class="tl-school"><i class="fas fa-university"></i> FST Beni Mellal</div>
+                    <div class="tl-school"><i class="fas fa-university"></i> FST Al Hoceima</div>
                     <p>Formation spécialisée en cryptographie appliquée, sécurité des systèmes et des réseaux, protocoles de sécurité, et audit de sécurité.</p>
                     <div class="tl-tags">
                         <span>Cryptographie</span><span>Sécurité Réseau</span><span>PKI</span><span>Audit</span>
@@ -399,6 +401,79 @@
     </div>
 </section>
 
+<!-- ===================== ARTICLES ===================== -->
+<section id="articles" class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">// ARTICLES</span>
+            <h2 class="section-title">Articles Scientifiques</h2>
+            <div class="title-line"></div>
+        </div>
+
+        <div class="articles-intro">
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span class="t-dot red"></span>
+                    <span class="t-dot yellow"></span>
+                    <span class="t-dot green"></span>
+                    <span class="t-title">articles.sh</span>
+                </div>
+                <div class="terminal-body">
+                    <p><span class="t-cmd">$ ls -la ./publications</span></p>
+                    <p class="t-out">Partage de recherches en cryptologie, sécurité informatique et développement.</p>
+                    <p class="t-prompt">█</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="articles-grid">
+            <!-- Article 1 - Placeholder -->
+            <article class="article-card">
+                <div class="article-meta">
+                    <span class="article-tag"><i class="fas fa-lock"></i> Cryptographie</span>
+                    <span class="article-date">Bientôt</span>
+                </div>
+                <h3 class="article-title">Introduction aux protocoles cryptographiques modernes</h3>
+                <p class="article-excerpt">Une exploration des fondements mathématiques et des applications pratiques de la cryptographie asymétrique, des courbes elliptiques et des protocoles TLS/PKI.</p>
+                <div class="article-footer">
+                    <span class="article-status coming-soon"><i class="fas fa-clock"></i> En rédaction</span>
+                </div>
+            </article>
+
+            <!-- Article 2 - Placeholder -->
+            <article class="article-card">
+                <div class="article-meta">
+                    <span class="article-tag"><i class="fas fa-shield-alt"></i> Sécurité Web</span>
+                    <span class="article-date">Bientôt</span>
+                </div>
+                <h3 class="article-title">Vulnérabilités des applications web : analyse et contre-mesures</h3>
+                <p class="article-excerpt">Étude des principales vulnérabilités OWASP Top 10 avec des exemples concrets, des démonstrations de code et les meilleures pratiques de développement sécurisé.</p>
+                <div class="article-footer">
+                    <span class="article-status coming-soon"><i class="fas fa-clock"></i> En rédaction</span>
+                </div>
+            </article>
+
+            <!-- Article 3 - Placeholder -->
+            <article class="article-card">
+                <div class="article-meta">
+                    <span class="article-tag"><i class="fas fa-chart-bar"></i> Data Science</span>
+                    <span class="article-date">Bientôt</span>
+                </div>
+                <h3 class="article-title">Analyse statistique avec R : applications en cybersécurité</h3>
+                <p class="article-excerpt">Comment le langage R peut être utilisé pour l'analyse de données de sécurité, la détection d'anomalies et la visualisation d'incidents réseau.</p>
+                <div class="article-footer">
+                    <span class="article-status coming-soon"><i class="fas fa-clock"></i> En rédaction</span>
+                </div>
+            </article>
+        </div>
+
+        <div class="articles-note">
+            <i class="fas fa-rss"></i>
+            <span>De nouveaux articles seront publiés régulièrement. Revenez bientôt !</span>
+        </div>
+    </div>
+</section>
+
 <!-- ===================== CONTACT ===================== -->
 <section id="contact" class="section section-dark">
     <div class="container">
@@ -448,28 +523,16 @@
             </div>
 
             <div class="contact-form-block">
-                <form class="contact-form" name="contact" method="POST" data-netlify="true">
-                    <input type="hidden" name="form-name" value="contact">
-                    <div class="form-group">
-                        <label for="name"><span class="label-prefix">// </span>Nom</label>
-                        <input type="text" id="name" name="name" placeholder="Votre nom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email"><span class="label-prefix">// </span>Email</label>
-                        <input type="email" id="email" name="email" placeholder="votre@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject"><span class="label-prefix">// </span>Sujet</label>
-                        <input type="text" id="subject" name="subject" placeholder="Sujet du message" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message"><span class="label-prefix">// </span>Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Votre message..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary full-width">
-                        <i class="fas fa-paper-plane"></i> Envoyer le message
-                    </button>
-                </form>
+                <div class="email-cta-block">
+                    <div class="email-cta-label">// ENVOYER UN MESSAGE</div>
+                    <p class="email-cta-desc">Cliquez sur l'icône ci-dessous pour m'envoyer un e-mail directement depuis votre boîte mail.</p>
+                    <a href="mailto:baalilhoussaine1@gmail.com?subject=Contact depuis le portfolio" class="email-icon-btn" title="Envoyer un email">
+                        <div class="email-icon-ring"></div>
+                        <i class="fas fa-envelope"></i>
+                        <span class="email-icon-pulse"></span>
+                    </a>
+                    <div class="email-cta-address">baalilhoussaine1@gmail.com</div>
+                </div>
             </div>
         </div>
     </div>

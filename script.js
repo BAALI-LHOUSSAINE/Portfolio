@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.project-card, .skill-group, .timeline-item, .tl-card').forEach(el => observer.observe(el));
+    document.querySelectorAll('.project-card, .skill-group, .timeline-item, .tl-card, .article-card').forEach(el => observer.observe(el));
 
     // ===== CONTACT FORM =====
     const form = document.querySelector('.contact-form');

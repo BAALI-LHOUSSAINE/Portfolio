@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles — Baali Lhoussaine</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-noise"></div>
+
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a class="nav-logo" href="index.html">
+            <span class="logo-bracket">[</span>BL<span class="logo-bracket">]</span>
+        </a>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Accueil</a></li>
+            <li><a href="index.html#apropos" class="nav-link">À propos</a></li>
+            <li><a href="index.html#projets" class="nav-link">Projets</a></li>
+            <li><a href="articles.html" class="nav-link active">Articles</a></li>
+            <li><a href="index.html#contact" class="nav-link nav-cta">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="articles-hero">
+    <span class="section-label">Écrits & Recherches</span>
+    <h1 class="section-title">Articles</h1>
+    <p>Réflexions sur la cryptographie, la cybersécurité et l'ingénierie logicielle.</p>
+</div>
+
+<!-- Filter buttons -->
+<div class="container">
+    <div class="articles-filter" id="articleFilter">
+        <button class="filter-btn active" data-cat="tous">Tous</button>
+        <button class="filter-btn" data-cat="cryptographie">Cryptographie</button>
+        <button class="filter-btn" data-cat="securite">Sécurité</button>
+        <button class="filter-btn" data-cat="developpement">Développement</button>
+        <button class="filter-btn" data-cat="tutoriel">Tutoriel</button>
+    </div>
+</div>
+
+<!-- Articles -->
+<section class="articles-section">
+    <div class="container">
+        <div class="articles-grid" id="articlesGrid">
+
+            <!--
+            =====================================================
+            COMMENT AJOUTER UN ARTICLE :
+            Copiez un bloc <article> ci-dessous et modifiez :
+              - data-category : cryptographie | securite | developpement | tutoriel
+              - article-date : la date
+              - article-category : le label affiché
+              - h3 : le titre
+              - p : le résumé
+              - href sur "Lire l'article" : lien vers votre page article
+              - Optionnel : remplacez l'icône par <img> dans .article-card-img
+            =====================================================
+            -->
+
+            <!-- EXEMPLE 1 — À conserver ou supprimer -->
+            <article class="article-card reveal" data-category="cryptographie">
+                <div class="article-card-img">
+                    <i class="fas fa-key article-icon"></i>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-meta">
+                        <span class="article-category">Cryptographie</span>
+                        <span class="article-date">Juin 2025</span>
+                    </div>
+                    <h3>Introduction à la cryptographie asymétrique : RSA expliqué simplement</h3>
+                    <p>Comprendre le fonctionnement de l'algorithme RSA, depuis les bases mathématiques (arithmétique modulaire, théorème d'Euler) jusqu'à son implémentation pratique.</p>
+                    <a href="#" class="read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <!-- EXEMPLE 2 -->
+            <article class="article-card reveal" data-category="securite">
+                <div class="article-card-img">
+                    <i class="fas fa-shield-halved article-icon"></i>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-meta">
+                        <span class="article-category">Sécurité</span>
+                        <span class="article-date">Mai 2025</span>
+                    </div>
+                    <h3>Les attaques par injection SQL : comprendre et se défendre</h3>
+                    <p>Analyse des différents types d'injections SQL, démonstration sur un environnement de test, et mise en place de contre-mesures efficaces.</p>
+                    <a href="#" class="read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <!-- EXEMPLE 3 -->
+            <article class="article-card reveal" data-category="developpement">
+                <div class="article-card-img">
+                    <i class="fas fa-plug article-icon"></i>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-meta">
+                        <span class="article-category">Développement</span>
+                        <span class="article-date">Avril 2025</span>
+                    </div>
+                    <h3>Développer un plugin Moodle en PHP : retour d'expérience</h3>
+                    <p>Retour détaillé sur le développement de mon plugin de génération de QCM par IA pour Moodle : architecture, défis techniques, API Moodle.</p>
+                    <a href="#" class="read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <!-- EXEMPLE 4 -->
+            <article class="article-card reveal" data-category="tutoriel">
+                <div class="article-card-img">
+                    <i class="fas fa-terminal article-icon"></i>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-meta">
+                        <span class="article-category">Tutoriel</span>
+                        <span class="article-date">Mars 2025</span>
+                    </div>
+                    <h3>Mettre en place HTTPS avec Let's Encrypt sur un VPS</h3>
+                    <p>Guide pas-à-pas pour sécuriser votre serveur web avec un certificat TLS gratuit via Certbot et Let's Encrypt, avec renouvellement automatique.</p>
+                    <a href="#" class="read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <!--
+            =====================================================
+            AJOUTEZ VOS ARTICLES ICI — copiez ce bloc :
+
+            <article class="article-card reveal" data-category="CATEGORIE">
+                <div class="article-card-img">
+                    <i class="fas fa-ICON article-icon"></i>
+                </div>
+                <div class="article-card-body">
+                    <div class="article-meta">
+                        <span class="article-category">CATÉGORIE</span>
+                        <span class="article-date">MOIS ANNÉE</span>
+                    </div>
+                    <h3>TITRE DE L'ARTICLE</h3>
+                    <p>DESCRIPTION COURTE (2-3 lignes)</p>
+                    <a href="LIEN" class="read-more">Lire l'article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            Pour ajouter une image à la place de l'icône, remplacez
+            <div class="article-card-img"> par :
+            <div class="article-card-img has-img">
+                <img src="images/votre-image.jpg" alt="description">
+            </div>
+            =====================================================
+            -->
+
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo-bracket">[</span>BL<span class="logo-bracket">]</span>
+                <p>Cryptologie & Sécurité Informatique</p>
+            </div>
+            <nav class="footer-nav">
+                <a href="index.html">Accueil</a>
+                <a href="index.html#apropos">À propos</a>
+                <a href="index.html#projets">Projets</a>
+                <a href="articles.html">Articles</a>
+            </nav>
+            <div class="footer-social">
+                <a href="https://github.com/BAALI-LHOUSSAINE" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/baali-lhoussaine" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:baalilhoussaine1@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Baali Lhoussaine — Tous droits réservés.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+// Filter functionality
+const filterBtns = document.querySelectorAll('.filter-btn');
+const articles = document.querySelectorAll('.article-card');
+const articlesGrid = document.getElementById('articlesGrid');
+
+const emptyMessage = document.createElement('div');
+emptyMessage.className = 'articles-empty';
+emptyMessage.innerHTML = '<i class="fas fa-folder-open"></i><p>Aucun article trouvé pour cette catégorie.</p>';
+articlesGrid.appendChild(emptyMessage);
+
+const updateEmptyState = () => {
+    const visibleArticles = Array.from(articles).filter(article => article.style.display !== 'none');
+    emptyMessage.style.display = visibleArticles.length ? 'none' : 'block';
+};
+
+updateEmptyState();
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        articles.forEach(article => {
+            if (cat === 'tous' || article.dataset.category === cat) {
+                article.style.display = '';
+                setTimeout(() => article.classList.add('visible'), 50);
+            } else {
+                article.style.display = 'none';
+            }
+        });
+        updateEmptyState();
+    });
+});
+</script>
+</body>
+</html>

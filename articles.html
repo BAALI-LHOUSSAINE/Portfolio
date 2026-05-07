@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles — BAALI LHOUSSAINE</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary:    #f0f2f5;
+            --bg-secondary:  #e8eaed;
+            --bg-card:       #ffffff;
+            --bg-card-hover: #f7f9fc;
+            --bg-terminal:   #1e2a3a;
+            --accent:        #1a3a6b;
+            --accent-light:  #2a5298;
+            --accent-dim:    #3d6abf;
+            --accent-glow:   rgba(26,58,107,0.10);
+            --accent-muted:  #c8d5ea;
+            --cyan-accent:   #0077cc;
+            --red-alert:     #d93025;
+            --yellow-warn:   #f59e0b;
+            --green-ok:      #16a34a;
+            --text-primary:  #1a202c;
+            --text-secondary:#4a5568;
+            --text-muted:    #9aa5b4;
+            --border-color:  #dde1e7;
+            --border-active: rgba(26,58,107,0.35);
+            --shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md:  0 4px 12px rgba(0,0,0,0.10);
+            --shadow-lg:  0 10px 40px rgba(0,0,0,0.12);
+            --font-mono:    'Share Tech Mono', monospace;
+            --font-display: 'Orbitron', monospace;
+            --font-body:    'Rajdhani', sans-serif;
+            --transition:   all 0.3s ease;
+        }
+        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+        html { scroll-behavior:smooth; }
+        body { font-family:var(--font-body); background:var(--bg-primary); color:var(--text-primary); line-height:1.7; overflow-x:hidden; }
+
+        #matrix-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; opacity:0.04; pointer-events:none; }
+        .scanlines { display:none; }
+        .scroll-bar { position:fixed; top:0; left:0; width:100%; height:2px; background:rgba(0,255,106,0.1); z-index:9999; }
+        .scroll-progress { height:100%; width:0%; background:linear-gradient(90deg,var(--accent),var(--accent-dim)); transition:width 0.1s; }
+
+        /* NAV */
+        .navbar { position:fixed; top:0; width:100%; background:rgba(255,255,255,0.93); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid var(--border-color); z-index:1000; padding:0.9rem 0; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+        .nav-container { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
+        .nav-logo { font-family:var(--font-display); font-size:1.05rem; font-weight:700; letter-spacing:2px; color:var(--accent); text-decoration:none; display:flex; align-items:center; gap:2px; }
+        .logo-bracket { color:var(--text-muted); }
+        .logo-cursor { animation:blink 1s infinite; color:var(--accent); }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+        .nav-menu { display:flex; list-style:none; gap:2rem; }
+        .nav-link { font-family:var(--font-mono); font-size:0.82rem; color:var(--text-secondary); text-decoration:none; letter-spacing:1px; transition:var(--transition); position:relative; padding-bottom:2px; }
+        .nav-num { color:var(--accent); margin-right:4px; font-size:0.75rem; }
+        .nav-link::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:var(--accent); transition:width 0.3s; border-radius:1px; }
+        .nav-link:hover,.nav-link.active { color:var(--accent); }
+        .nav-link:hover::after,.nav-link.active::after { width:100%; }
+        .hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
+        .hamburger span { width:24px; height:2px; background:var(--accent); transition:0.3s; box-shadow:0 0 4px var(--green-primary); }
+
+        /* PAGE HEADER */
+        .page-header { padding:120px 24px 50px; position:relative; z-index:2; border-bottom:1px solid var(--border-color); }
+        .page-header-inner { max-width:1200px; margin:0 auto; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:1.5rem; }
+        .header-text .page-tag { font-family:var(--font-mono); font-size:0.75rem; color:var(--accent-dim); letter-spacing:3px; display:block; margin-bottom:0.8rem; }
+        .page-title { font-family:var(--font-display); font-size:2.4rem; font-weight:900; letter-spacing:3px; line-height:1.1; }
+        .page-title span { color:var(--accent); }
+        .page-sub { font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted); margin-top:0.6rem; }
+        .title-line { width:60px; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent-dim)); margin-top:1rem; }
+        .header-stat { font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); text-align:right; }
+        .header-stat strong { color:var(--accent); font-size:2rem; font-family:var(--font-display); display:block; line-height:1; }
+
+        /* MAIN */
+        .main-wrap { max-width:1200px; margin:0 auto; padding:2.5rem 24px 5rem; position:relative; z-index:2; }
+
+        /* FILTER BAR */
+        .filter-bar { display:flex; align-items:center; gap:1rem; margin-bottom:2.2rem; flex-wrap:wrap; padding-bottom:1.5rem; border-bottom:1px solid var(--border-color); }
+        .filter-label { font-family:var(--font-mono); font-size:0.72rem; color:var(--text-muted); white-space:nowrap; }
+        .filter-chips { display:flex; gap:0.4rem; flex-wrap:wrap; }
+        .filter-chip { font-family:var(--font-mono); font-size:0.71rem; padding:4px 12px; border-radius:3px; border:1px solid var(--border-color); background:transparent; color:var(--text-muted); cursor:pointer; transition:var(--transition); }
+        .filter-chip:hover { border-color:var(--accent); color:var(--accent); }
+        .filter-chip.active { border-color:var(--accent); color:var(--accent); background:var(--accent-glow); }
+        .filter-count { font-family:var(--font-mono); font-size:0.71rem; color:var(--text-muted); margin-left:auto; white-space:nowrap; }
+
+        /* ARTICLES GRID */
+        .articles-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:1.5rem; }
+
+        /* ARTICLE CARD */
+        .article-card { background:var(--bg-card); border:1px solid var(--border-color); border-radius:8px; overflow:hidden; cursor:pointer; transition:var(--transition); position:relative; display:flex; flex-direction:column; }
+        .article-card.hidden { display:none; }
+        .article-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:linear-gradient(180deg,var(--accent),var(--accent-dim)); opacity:0; transition:var(--transition); }
+        .article-card:hover { border-color:var(--border-active); background:var(--bg-card-hover); transform:translateY(-3px); box-shadow:0 8px 30px rgba(0,0,0,0.10); }
+        .article-card:hover::before { opacity:1; }
+        .card-top { padding:1.2rem 1.4rem 0.8rem; }
+        .card-meta { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap; gap:0.4rem; }
+        .card-tag { font-family:var(--font-mono); font-size:0.7rem; color:var(--accent); background:rgba(26,58,107,0.07); border:1px solid var(--accent-muted); padding:2px 9px; border-radius:3px; }
+        .card-date { font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted); }
+        .card-title { font-family:var(--font-display); font-size:0.9rem; font-weight:700; color:var(--text-primary); line-height:1.4; letter-spacing:0.4px; }
+        .card-excerpt { padding:0 1.4rem 1rem; font-size:0.88rem; color:var(--text-secondary); line-height:1.6; flex:1; }
+        .card-footer { padding:0.8rem 1.4rem; border-top:1px solid var(--border-color); display:flex; align-items:center; justify-content:space-between; }
+        .card-readtime { font-family:var(--font-mono); font-size:0.68rem; color:var(--text-muted); }
+        .card-read-btn { font-family:var(--font-mono); font-size:0.7rem; color:var(--accent); border:1px solid var(--accent-muted); background:transparent; padding:3px 10px; border-radius:3px; cursor:pointer; transition:var(--transition); }
+        .card-read-btn:hover { background:var(--accent-glow); border-color:var(--accent); }
+
+        /* READER MODAL */
+        .modal-overlay { position:fixed; inset:0; background:rgba(248,249,252,0.98); z-index:2000; display:none; overflow-y:auto; }
+        .modal-overlay.open { display:block; animation:fadeIn 0.25s ease; }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        .modal-inner { max-width:760px; margin:0 auto; padding:0 24px 5rem; }
+        .modal-nav { position:sticky; top:0; background:rgba(2,12,7,0.96); border-bottom:1px solid var(--border-color); padding:0.9rem 0; margin-bottom:2.5rem; display:flex; align-items:center; justify-content:space-between; z-index:10; backdrop-filter:blur(8px); }
+        .modal-back { font-family:var(--font-mono); font-size:0.78rem; color:var(--text-secondary); background:var(--bg-card); border:1px solid var(--border-color); padding:5px 12px; border-radius:6px; cursor:pointer; transition:var(--transition); display:flex; align-items:center; gap:0.4rem; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+        .modal-back:hover { border-color:var(--accent); color:var(--accent); }
+        .modal-readtime { font-family:var(--font-mono); font-size:0.68rem; color:var(--text-muted); }
+        .modal-tag { font-family:var(--font-mono); font-size:0.72rem; color:var(--accent); background:rgba(26,58,107,0.07); border:1px solid var(--accent-muted); padding:3px 10px; border-radius:3px; display:inline-block; margin-bottom:1.2rem; }
+        .modal-title { font-family:var(--font-display); font-size:1.75rem; font-weight:900; color:var(--text-primary); line-height:1.3; letter-spacing:1px; margin-bottom:1rem; }
+        .modal-meta { display:flex; gap:1.5rem; margin-bottom:2rem; font-family:var(--font-mono); font-size:0.74rem; color:var(--text-muted); padding-bottom:1.5rem; border-bottom:1px solid var(--border-color); flex-wrap:wrap; }
+        .modal-meta span { display:flex; align-items:center; gap:0.4rem; }
+        .modal-meta i { color:var(--accent); }
+
+        /* ARTICLE BODY */
+        .article-body { color:var(--text-secondary); font-size:1rem; line-height:1.85; }
+        .article-body h1 { font-family:var(--font-display); font-size:1.35rem; color:var(--accent); margin:2.2rem 0 1rem; letter-spacing:1px; }
+        .article-body h2 { font-family:var(--font-display); font-size:1.1rem; color:var(--accent); margin:2rem 0 0.8rem; padding-left:0.8rem; border-left:3px solid var(--accent); }
+        .article-body h3 { font-family:var(--font-display); font-size:0.92rem; color:var(--accent-dim); margin:1.5rem 0 0.6rem; letter-spacing:0.5px; }
+        .article-body p { margin-bottom:1.1rem; }
+        .article-body strong { color:var(--text-primary); }
+        .article-body em { color:var(--yellow-warn); font-style:italic; }
+        .article-body a { color:var(--cyan-accent); text-decoration:underline; }
+        .article-body code { font-family:var(--font-mono); background:rgba(26,58,107,0.08); padding:2px 7px; border-radius:3px; color:var(--accent); font-size:0.87em; }
+        .article-body pre { background:#1e2a3a; border:1px solid var(--border-color); border-radius:6px; padding:1.2rem; margin:1.2rem 0; overflow-x:auto; position:relative; }
+        .article-body pre::before { content:'// code'; font-family:var(--font-mono); font-size:0.63rem; color:#6a8099; position:absolute; top:7px; right:10px; }
+        .article-body pre code { background:none; padding:0; color:#9cdcfe; font-size:0.87em; line-height:1.65; }
+        .article-body ul,.article-body ol { padding-left:1.8rem; margin-bottom:1.1rem; }
+        .article-body li { margin-bottom:0.45rem; }
+        .article-body blockquote { border-left:3px solid var(--accent); padding:0.6rem 0 0.6rem 1.2rem; margin:1.2rem 0; background:rgba(0,255,106,0.03); border-radius:0 6px 6px 0; }
+        .article-body blockquote p { margin:0; color:var(--text-muted); font-style:italic; }
+        .article-body hr { border:none; border-top:1px solid var(--border-color); margin:2rem 0; }
+        .article-body table { width:100%; border-collapse:collapse; margin:1.2rem 0; }
+        .article-body th { background:rgba(26,58,107,0.07); color:var(--accent); font-family:var(--font-mono); font-size:0.78rem; padding:0.55rem 0.9rem; text-align:left; border:1px solid var(--border-color); }
+        .article-body td { padding:0.55rem 0.9rem; border:1px solid var(--border-color); font-size:0.92rem; }
+        .article-body .note { background:rgba(0,119,204,0.06); border:1px solid rgba(0,119,204,0.2); border-radius:6px; padding:0.9rem 1.1rem; margin:1.2rem 0; }
+        .article-body .note::before { content:'ℹ '; color:var(--cyan-accent); font-weight:bold; }
+        .article-body .warning { background:rgba(255,224,102,0.05); border:1px solid rgba(255,224,102,0.2); border-radius:6px; padding:0.9rem 1.1rem; margin:1.2rem 0; }
+        .article-body .warning::before { content:'⚠ '; color:var(--yellow-warn); }
+
+        /* EMPTY */
+        .empty-state { grid-column:1/-1; text-align:center; padding:4rem 2rem; border:1px dashed var(--green-muted); border-radius:8px; }
+        .empty-icon { font-size:3rem; color:var(--text-muted); margin-bottom:1rem; }
+        .empty-title { font-family:var(--font-display); font-size:1rem; color:var(--text-muted); letter-spacing:2px; margin-bottom:0.5rem; }
+        .empty-sub { font-family:var(--font-mono); font-size:0.78rem; color:var(--text-muted); }
+
+        footer { position:relative; z-index:2; background:var(--accent); padding:1.8rem 24px; text-align:center; }
+        footer p { font-family:var(--font-mono); font-size:0.74rem; color:var(--text-secondary); }
+        footer a { color:rgba(255,255,255,0.7); text-decoration:none; }
+
+        @media(max-width:768px) {
+            .hamburger { display:flex; }
+            .nav-menu { position:fixed; left:-100%; top:60px; flex-direction:column; background:rgba(248,249,252,0.98); border:1px solid var(--border-color); width:100%; text-align:center; transition:0.3s; padding:2rem 0; gap:1.5rem; z-index:999; }
+            .nav-menu.active { left:0; }
+            .hamburger.active span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity:0; }
+            .hamburger.active span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+            .articles-grid { grid-template-columns:1fr; }
+            .page-header { padding:100px 16px 40px; }
+            .modal-title { font-size:1.3rem; }
+            .main-wrap { padding:2rem 16px 4rem; }
+        }
+        @media(max-width:480px) { .page-title { font-size:1.7rem; } }
+    </style>
+</head>
+<body>
+
+<canvas id="matrix-canvas"></canvas>
+<div class="scanlines"></div>
+<div class="scroll-bar"><div class="scroll-progress" id="scrollProgress"></div></div>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">
+            <span class="logo-bracket">[</span>BL<span class="logo-cursor">_</span><span class="logo-bracket">]</span>
+        </a>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html#accueil" class="nav-link"><span class="nav-num">01.</span>Accueil</a></li>
+            <li><a href="index.html#apropos" class="nav-link"><span class="nav-num">02.</span>À Propos</a></li>
+            <li><a href="index.html#projets" class="nav-link"><span class="nav-num">03.</span>Projets</a></li>
+            <li><a href="index.html#cv" class="nav-link"><span class="nav-num">04.</span>CV</a></li>
+            <li><a href="articles.html" class="nav-link active"><span class="nav-num">05.</span>Articles</a></li>
+            <li><a href="index.html#contact" class="nav-link"><span class="nav-num">06.</span>Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="page-header">
+    <div class="page-header-inner">
+        <div class="header-text">
+            <span class="page-tag">// PUBLICATIONS</span>
+            <h1 class="page-title">Articles <span>Scientifiques</span></h1>
+            <p class="page-sub">Cryptologie · Sécurité · Développement · Data Science</p>
+            <div class="title-line"></div>
+        </div>
+        <div class="header-stat">
+            <strong>3</strong>
+            articles publiés
+        </div>
+    </div>
+</div>
+
+<div class="main-wrap">
+    <div class="filter-bar">
+        <span class="filter-label">$ filter --cat</span>
+        <div class="filter-chips">
+            <button class="filter-chip active" data-filter="all">Tous</button>
+            <button class="filter-chip" data-filter="Cryptographie">Cryptographie</button>
+            <button class="filter-chip" data-filter="Sécurité Web">Sécurité Web</button>
+            <button class="filter-chip" data-filter="Réseau">Réseau</button>
+            <button class="filter-chip" data-filter="Data Science">Data Science</button>
+            <button class="filter-chip" data-filter="Développement">Développement</button>
+            <button class="filter-chip" data-filter="Recherche">Recherche</button>
+        </div>
+        <span class="filter-count" id="filterCount">3 article(s)</span>
+    </div>
+
+    <div class="articles-grid" id="articlesGrid">
+
+        <!-- ======================================================
+             ARTICLE 1
+        ====================================================== -->
+        <div class="article-card" data-category="Cryptographie" onclick="openReader(1)">
+            <div class="card-top">
+                <div class="card-meta">
+                    <span class="card-tag">Cryptographie</span>
+                    <span class="card-date">01 juin 2025</span>
+                </div>
+                <div class="card-title">Introduction aux protocoles cryptographiques modernes</div>
+            </div>
+            <div class="card-excerpt">Une exploration des fondements mathématiques et des applications pratiques de la cryptographie asymétrique, des courbes elliptiques et des protocoles TLS/PKI.</div>
+            <div class="card-footer">
+                <span class="card-readtime"><i class="fas fa-clock"></i> ~8 min</span>
+                <button class="card-read-btn"><i class="fas fa-book-open"></i> Lire</button>
+            </div>
+        </div>
+
+        <!-- ======================================================
+             ARTICLE 2
+        ====================================================== -->
+        <div class="article-card" data-category="Sécurité Web" onclick="openReader(2)">
+            <div class="card-top">
+                <div class="card-meta">
+                    <span class="card-tag">Sécurité Web</span>
+                    <span class="card-date">15 mai 2025</span>
+                </div>
+                <div class="card-title">Vulnérabilités OWASP Top 10 : analyse et contre-mesures</div>
+            </div>
+            <div class="card-excerpt">Étude des principales vulnérabilités des applications web avec des exemples concrets, des démonstrations de code et les meilleures pratiques de développement sécurisé.</div>
+            <div class="card-footer">
+                <span class="card-readtime"><i class="fas fa-clock"></i> ~10 min</span>
+                <button class="card-read-btn"><i class="fas fa-book-open"></i> Lire</button>
+            </div>
+        </div>
+
+        <!-- ======================================================
+             ARTICLE 3
+        ====================================================== -->
+        <div class="article-card" data-category="Data Science" onclick="openReader(3)">
+            <div class="card-top">
+                <div class="card-meta">
+                    <span class="card-tag">Data Science</span>
+                    <span class="card-date">20 avr. 2025</span>
+                </div>
+                <div class="card-title">Analyse statistique avec R : détection d'anomalies réseau</div>
+            </div>
+            <div class="card-excerpt">Comment le langage R peut être utilisé pour l'analyse de logs réseau, la détection d'anomalies comportementales et la visualisation d'incidents de sécurité.</div>
+            <div class="card-footer">
+                <span class="card-readtime"><i class="fas fa-clock"></i> ~7 min</span>
+                <button class="card-read-btn"><i class="fas fa-book-open"></i> Lire</button>
+            </div>
+        </div>
+
+        <!--
+        ╔══════════════════════════════════════════════════════╗
+        ║  AJOUTER UN ARTICLE : copiez le bloc ci-dessous,    ║
+        ║  décommentez-le et remplissez le contenu.           ║
+        ╚══════════════════════════════════════════════════════╝
+
+        <div class="article-card" data-category="Cryptographie" onclick="openReader(4)">
+            <div class="card-top">
+                <div class="card-meta">
+                    <span class="card-tag">Cryptographie</span>
+                    <span class="card-date">JJ mois AAAA</span>
+                </div>
+                <div class="card-title">Titre de l'article</div>
+            </div>
+            <div class="card-excerpt">Résumé affiché sur la carte.</div>
+            <div class="card-footer">
+                <span class="card-readtime"><i class="fas fa-clock"></i> ~X min</span>
+                <button class="card-read-btn"><i class="fas fa-book-open"></i> Lire</button>
+            </div>
+        </div>
+        -->
+
+    </div><!-- /articles-grid -->
+</div><!-- /main-wrap -->
+
+<!-- ============================================================
+     READER MODAL
+     Les contenus complets des articles sont ici.
+     Pour ajouter un article : ajoutez un <div id="article-content-4"> etc.
+============================================================ -->
+<div class="modal-overlay" id="readerModal">
+    <div class="modal-inner">
+        <div class="modal-nav">
+            <button class="modal-back" onclick="closeReader()">
+                <i class="fas fa-arrow-left"></i> Retour aux articles
+            </button>
+            <span class="modal-readtime" id="modalReadtime"></span>
+        </div>
+        <div class="modal-tag" id="modalTag"></div>
+        <h1 class="modal-title" id="modalTitle"></h1>
+        <div class="modal-meta" id="modalMeta"></div>
+        <div class="article-body" id="modalBody"></div>
+    </div>
+</div>
+
+<!-- ============================================================
+     CONTENUS DES ARTICLES (HTML complet)
+     hidden — injectés dans le modal au clic
+============================================================ -->
+
+<!-- ARTICLE 1 CONTENT -->
+<template id="article-content-1">
+    <h2>Qu'est-ce que la cryptographie moderne ?</h2>
+    <p>La cryptographie moderne repose sur des problèmes mathématiques réputés difficiles à résoudre : la <strong>factorisation de grands entiers</strong>, le <strong>logarithme discret</strong>, ou les <strong>calculs sur courbes elliptiques</strong>. Ces fondements garantissent la sécurité des communications numériques actuelles.</p>
+    <p>Contrairement à la cryptographie classique (César, Vigenère), la cryptographie moderne s'appuie sur des preuves mathématiques formelles de sécurité, souvent réductibles à des hypothèses calculatoires bien établies.</p>
+
+    <h2>Cryptographie symétrique vs asymétrique</h2>
+    <p>La cryptographie <strong>symétrique</strong> (AES, ChaCha20) utilise la même clé pour chiffrer et déchiffrer. Elle est très rapide mais pose un problème fondamental d'échange de clé. La cryptographie <strong>asymétrique</strong> (RSA, ECDSA) utilise une paire de clés publique/privée, résolvant ce problème au prix d'un coût computationnel plus élevé.</p>
+
+    <table>
+        <tr><th>Algorithme</th><th>Type</th><th>Usage typique</th><th>Taille de clé</th></tr>
+        <tr><td>AES-256</td><td>Symétrique</td><td>Chiffrement de données</td><td>256 bits</td></tr>
+        <tr><td>RSA</td><td>Asymétrique</td><td>Échange de clés, signatures</td><td>2048–4096 bits</td></tr>
+        <tr><td>ECDSA</td><td>Asymétrique</td><td>Signatures numériques</td><td>256 bits (P-256)</td></tr>
+        <tr><td>ChaCha20</td><td>Symétrique</td><td>Chiffrement flux (mobile)</td><td>256 bits</td></tr>
+    </table>
+
+    <h2>Les courbes elliptiques (ECC)</h2>
+    <p>L'ECC (Elliptic Curve Cryptography) offre la même sécurité que RSA avec des clés bien plus courtes. Une clé ECC de <strong>256 bits</strong> est considérée équivalente à une clé RSA de <strong>3072 bits</strong>. La sécurité repose sur la difficulté du problème du logarithme discret sur courbes elliptiques (ECDLP).</p>
+    <pre><code># Génération d'une paire de clés ECDSA avec OpenSSL
+openssl ecparam -name prime256v1 -genkey -noout -out private.pem
+openssl ec -in private.pem -pubout -out public.pem
+
+# Signer un fichier
+openssl dgst -sha256 -sign private.pem -out signature.bin fichier.txt
+
+# Vérifier la signature
+openssl dgst -sha256 -verify public.pem -signature signature.bin fichier.txt</code></pre>
+
+    <h2>Le protocole TLS 1.3</h2>
+    <p>TLS (Transport Layer Security) sécurise les communications sur Internet (HTTPS, SMTPS, etc.). La version 1.3, standardisée en 2018 par la RFC 8446, apporte d'importantes améliorations :</p>
+    <ul>
+        <li><strong>Handshake en 1 round-trip</strong> (contre 2 pour TLS 1.2) — latence réduite</li>
+        <li><strong>Confidentialité persistante obligatoire</strong> — seul ECDHE est autorisé pour l'échange de clés</li>
+        <li><strong>Suppression des algorithmes obsolètes</strong> — RSA statique, RC4, DES, 3DES, MD5, SHA-1 éliminés</li>
+        <li><strong>Chiffrement authentifié</strong> — AES-GCM, ChaCha20-Poly1305 uniquement</li>
+    </ul>
+
+    <div class="note">TLS 1.3 chiffre également une grande partie du handshake, rendant l'inspection du trafic beaucoup plus difficile pour les intermédiaires réseau.</div>
+
+    <h2>Infrastructure à clés publiques (PKI)</h2>
+    <p>La PKI est l'ensemble des mécanismes permettant de gérer les certificats numériques. Elle repose sur une chaîne de confiance :</p>
+    <ul>
+        <li><strong>Autorité de certification racine (Root CA)</strong> — auto-signée, hautement protégée</li>
+        <li><strong>Autorités intermédiaires</strong> — signent les certificats finaux</li>
+        <li><strong>Certificats feuilles</strong> — pour les serveurs et utilisateurs</li>
+    </ul>
+    <pre><code># Créer une autorité de certification auto-signée
+openssl req -x509 -newkey rsa:4096 -keyout ca.key -out ca.crt \
+    -days 3650 -nodes -subj "/CN=Mon CA/O=Ma Org"
+
+# Créer et signer un certificat serveur
+openssl req -newkey rsa:2048 -keyout server.key -out server.csr \
+    -nodes -subj "/CN=monserveur.com"
+openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
+    -CAcreateserial -out server.crt -days 365</code></pre>
+
+    <h2>Conclusion</h2>
+    <p>La cryptographie moderne est un pilier indispensable de la sécurité informatique. Comprendre ses mécanismes — ECC, TLS, PKI — est essentiel pour tout développeur ou ingénieur souhaitant concevoir des systèmes robustes et résistants aux attaques actuelles et futures.</p>
+</template>
+
+<!-- ARTICLE 2 CONTENT -->
+<template id="article-content-2">
+    <h2>L'OWASP Top 10</h2>
+    <p>L'OWASP (Open Web Application Security Project) est une fondation à but non lucratif qui travaille à améliorer la sécurité des logiciels. Elle publie régulièrement la liste des <strong>10 risques les plus critiques</strong> pour les applications web. Cette liste fait référence dans l'industrie.</p>
+    <p>La version 2021 présente des changements notables avec l'introduction de nouvelles catégories comme les <em>Insecure Design</em> et les <em>Software and Data Integrity Failures</em>.</p>
+
+    <h2>A01 — Broken Access Control</h2>
+    <p>Le contrôle d'accès défaillant est la vulnérabilité <strong>la plus répandue</strong> en 2021. Elle survient quand un utilisateur peut agir au-delà de ses permissions définies.</p>
+    <pre><code>// ❌ Mauvaise pratique — pas de vérification de propriété
+app.get('/api/document/:id', (req, res) => {
+    const doc = db.getDocument(req.params.id);
+    res.json(doc); // N'importe qui peut accéder à n'importe quel doc !
+});
+
+// ✅ Bonne pratique — vérification de l'identité du propriétaire
+app.get('/api/document/:id', authenticate, (req, res) => {
+    const doc = db.getDocument(req.params.id);
+    if (!doc || doc.ownerId !== req.user.id) {
+        return res.status(403).json({ error: 'Accès refusé' });
+    }
+    res.json(doc);
+});</code></pre>
+
+    <h2>A02 — Cryptographic Failures</h2>
+    <p>Anciennement appelé "Sensitive Data Exposure", ce risque concerne la mauvaise protection des données sensibles. Les erreurs les plus fréquentes :</p>
+    <ul>
+        <li>Transmission de données en clair (HTTP au lieu de HTTPS)</li>
+        <li>Utilisation d'algorithmes obsolètes (MD5, SHA-1 pour les mots de passe)</li>
+        <li>Clés cryptographiques codées en dur dans le code source</li>
+        <li>Absence de chiffrement des données au repos</li>
+    </ul>
+    <div class="warning">Ne jamais stocker les mots de passe en clair ni utiliser MD5/SHA-1 pour le hachage. Utilisez bcrypt, Argon2 ou scrypt avec un coût adapté.</div>
+
+    <h2>A03 — Injection (SQL, XSS, etc.)</h2>
+    <p>Les attaques par injection surviennent quand des données non fiables sont envoyées à un interpréteur.</p>
+    <pre><code>-- ❌ Injection SQL vulnérable
+$query = "SELECT * FROM users WHERE name = '" . $_GET['name'] . "'";
+// Entrée malveillante: ' OR '1'='1' --
+// Résultat: SELECT * FROM users WHERE name = '' OR '1'='1' --'
+
+-- ✅ Requête préparée (PHP PDO)
+$stmt = $pdo->prepare("SELECT * FROM users WHERE name = ?");
+$stmt->execute([$_GET['name']]);</code></pre>
+
+    <p>Pour le XSS (Cross-Site Scripting), toujours encoder les sorties :</p>
+    <pre><code>// ❌ Dangereux
+document.innerHTML = userInput;
+
+// ✅ Sécurisé
+document.textContent = userInput;
+// ou en PHP:
+echo htmlspecialchars($userInput, ENT_QUOTES, 'UTF-8');</code></pre>
+
+    <h2>A07 — Identification et authentification</h2>
+    <p>Les failles d'authentification permettent à un attaquant d'usurper l'identité d'un utilisateur légitime. Bonnes pratiques :</p>
+    <ul>
+        <li>Utiliser <strong>bcrypt</strong> ou <strong>Argon2</strong> pour le stockage des mots de passe</li>
+        <li>Implémenter le <strong>MFA</strong> (Multi-Factor Authentication)</li>
+        <li>Appliquer le <strong>rate limiting</strong> sur les tentatives de connexion</li>
+        <li>Générer des tokens de session <strong>cryptographiquement aléatoires</strong></li>
+        <li>Invalider les sessions à la déconnexion et après expiration</li>
+    </ul>
+    <pre><code">// Hachage bcrypt en Node.js
+const bcrypt = require('bcrypt');
+const SALT_ROUNDS = 12;
+
+// Lors de l'inscription
+const hash = await bcrypt.hash(plainPassword, SALT_ROUNDS);
+
+// Lors de la connexion
+const match = await bcrypt.compare(plainPassword, storedHash);
+if (!match) throw new Error('Identifiants invalides');</code></pre>
+
+    <h2>A09 — Journalisation insuffisante</h2>
+    <p>Sans logs appropriés, une intrusion peut passer inaperçue pendant des mois. Chaque système devrait journaliser :</p>
+    <ul>
+        <li>Toutes les tentatives d'authentification (succès et échecs)</li>
+        <li>Les accès aux données sensibles</li>
+        <li>Les erreurs serveur et exceptions non gérées</li>
+        <li>Les modifications de configuration et d'ACL</li>
+    </ul>
+
+    <div class="note">Selon le rapport IBM Cost of a Data Breach 2023, le temps moyen de détection d'une violation est de 204 jours sans système de monitoring adapté.</div>
+
+    <h2>Conclusion</h2>
+    <p>La sécurité applicative est un <strong>processus continu</strong>, pas un état final. Intégrer les tests de sécurité dès le début du développement (approche DevSecOps), former les développeurs aux vulnérabilités communes et réaliser des audits réguliers sont les clés d'une application robuste.</p>
+</template>
+
+<!-- ARTICLE 3 CONTENT -->
+<template id="article-content-3">
+    <h2>Pourquoi R en cybersécurité ?</h2>
+    <p>R est un langage de programmation conçu spécifiquement pour l'analyse statistique et la visualisation de données. En cybersécurité, il offre un écosystème puissant pour analyser des volumes importants de logs, détecter des comportements anormaux et identifier des tendances d'attaques.</p>
+    <p>Avec des packages comme <code>tidyverse</code>, <code>lubridate</code>, <code>ggplot2</code> et <code>anomalize</code>, R permet de construire des pipelines d'analyse complets.</p>
+
+    <h2>Chargement et exploration des logs</h2>
+    <pre><code># Installation des packages nécessaires
+install.packages(c("tidyverse", "lubridate", "data.table"))
+library(tidyverse)
+library(lubridate)
+library(data.table)
+
+# Chargement d'un fichier de logs Apache/Nginx
+logs <- fread("access.log",
+    col.names = c("ip", "timestamp", "method", "url", "status", "bytes", "user_agent"),
+    fill = TRUE
+)
+
+# Conversion de la date
+logs$timestamp <- dmy_hms(logs$timestamp)
+
+# Aperçu rapide
+summary(logs)
+table(logs$status)  # Distribution des codes HTTP</code></pre>
+
+    <h2>Détection d'anomalies par z-score</h2>
+    <p>Le z-score mesure l'écart d'une valeur par rapport à la moyenne en unités d'écart-type. Une IP présentant un z-score supérieur à 3 est statistiquement anormale (à plus de 3 sigma de la moyenne).</p>
+    <pre><code># Nombre de requêtes par IP
+requests_per_ip <- logs %>%
+    group_by(ip) %>%
+    summarise(
+        n_requests   = n(),
+        n_errors     = sum(status >= 400),
+        avg_bytes    = mean(bytes, na.rm = TRUE),
+        .groups = "drop"
+    ) %>%
+    mutate(
+        zscore_req   = scale(n_requests)[,1],
+        zscore_err   = scale(n_errors)[,1]
+    )
+
+# IPs suspectes : z-score > 3
+anomalies <- requests_per_ip %>%
+    filter(abs(zscore_req) > 3 | abs(zscore_err) > 3) %>%
+    arrange(desc(n_requests))
+
+print(anomalies)</code></pre>
+
+    <h2>Visualisation des patterns d'attaque</h2>
+    <pre><code"># Distribution horaire des requêtes suspectes (brute-force, scan)
+logs_suspects <- logs %>%
+    filter(status %in% c(401, 403, 404, 429)) %>%
+    mutate(heure = hour(timestamp))
+
+ggplot(logs_suspects, aes(x = heure, fill = factor(status))) +
+    geom_histogram(binwidth = 1, position = "stack") +
+    scale_fill_manual(values = c(
+        "401" = "#ff3e3e",
+        "403" = "#ffe066",
+        "404" = "#00e5ff",
+        "429" = "#00ff6a"
+    )) +
+    labs(
+        title    = "Distribution horaire des requêtes suspectes",
+        subtitle = "Codes 401/403/404/429 par heure",
+        x        = "Heure de la journée",
+        y        = "Nombre de requêtes",
+        fill     = "Code HTTP"
+    ) +
+    theme_minimal()</code></pre>
+
+    <h2>Détection par clustering k-means</h2>
+    <p>Le clustering k-means regroupe les comportements réseau en clusters homogènes. Les points isolés — très éloignés de leur centroïde — représentent des comportements potentiellement malveillants.</p>
+    <pre><code># Feature engineering
+features_df <- logs %>%
+    group_by(ip) %>%
+    summarise(
+        n_req       = n(),
+        n_err       = sum(status >= 400),
+        n_post      = sum(method == "POST"),
+        avg_bytes   = mean(bytes, na.rm = TRUE),
+        n_unique_url = n_distinct(url),
+        .groups     = "drop"
+    )
+
+# Normalisation (important pour k-means)
+features_scaled <- scale(features_df[,-1])
+
+# Méthode du coude pour choisir k
+wss <- map_dbl(1:10, ~kmeans(features_scaled, centers = ., nstart = 25)$tot.withinss)
+plot(1:10, wss, type = "b", xlab = "Nombre de clusters k", ylab = "WSS")
+
+# Clustering final
+set.seed(42)
+km <- kmeans(features_scaled, centers = 4, nstart = 25)
+features_df$cluster <- km$cluster
+
+# Identifier le cluster suspect (plus petite taille, valeurs extrêmes)
+features_df %>%
+    group_by(cluster) %>%
+    summarise(across(where(is.numeric), mean)) %>%
+    arrange(desc(n_err))</code></pre>
+
+    <div class="note">Pour des datasets de grande taille (> 1M de lignes), utilisez <code>data.table</code> au lieu de <code>dplyr</code> — les performances peuvent être 10 à 50x supérieures.</div>
+
+    <h2>Analyse temporelle avec séries chronologiques</h2>
+    <pre><code># Détection d'anomalies temporelles avec le package anomalize
+library(anomalize)
+
+# Agréger par heure
+serie_horaire <- logs %>%
+    mutate(heure = floor_date(timestamp, "hour")) %>%
+    group_by(heure) %>%
+    summarise(n = n(), .groups = "drop") %>%
+    as_tibble()
+
+# Décomposition et détection d'anomalies
+serie_horaire %>%
+    time_decompose(n, method = "stl") %>%
+    anomalize(remainder, method = "iqr") %>%
+    time_recompose() %>%
+    plot_anomalies(time_recomposed = TRUE)</code></pre>
+
+    <h2>Conclusion</h2>
+    <p>R offre un écosystème mature pour l'analyse de sécurité. Combiné à des solutions de collecte de logs (ELK Stack, Splunk, Graylog), il permet de construire des pipelines de détection d'intrusion efficaces. La maîtrise des statistiques descriptives, des tests d'hypothèses et du machine learning sont des compétences de plus en plus valorisées dans le domaine de la cybersécurité.</p>
+</template>
+
+<!--
+    TEMPLATE POUR NOUVEL ARTICLE :
+    <template id="article-content-4">
+        <h2>Votre section</h2>
+        <p>Votre contenu HTML ici...</p>
+        <pre><code>votre code</code></pre>
+        <div class="note">Une note</div>
+        <div class="warning">Un avertissement</div>
+    </template>
+-->
+
+<footer>
+    <p>© 2025 <a href="index.html">Baali Lhoussaine</a> — Articles & Recherches</p>
+</footer>
+
+<script>
+// ============================================================
+//  ARTICLES META — synchronisé avec les cartes HTML
+// ============================================================
+const ARTICLES_META = {
+    1: { title: "Introduction aux protocoles cryptographiques modernes", category: "Cryptographie", date: "01 juin 2025", readtime: 8 },
+    2: { title: "Vulnérabilités OWASP Top 10 : analyse et contre-mesures",  category: "Sécurité Web",   date: "15 mai 2025",  readtime: 10 },
+    3: { title: "Analyse statistique avec R : détection d'anomalies réseau", category: "Data Science",  date: "20 avr. 2025", readtime: 7  },
+    // 4: { title: "Titre article 4", category: "Réseau", date: "01 juil. 2025", readtime: 5 },
+};
+
+// ---- Reader ----
+function openReader(id) {
+    const meta = ARTICLES_META[id];
+    const tmpl = document.getElementById('article-content-' + id);
+    if (!meta || !tmpl) return;
+
+    document.getElementById('modalTag').textContent      = meta.category;
+    document.getElementById('modalTitle').textContent    = meta.title;
+    document.getElementById('modalReadtime').textContent = '~' + meta.readtime + ' min de lecture';
+    document.getElementById('modalMeta').innerHTML = `
+        <span><i class="fas fa-calendar"></i> ${meta.date}</span>
+        <span><i class="fas fa-tag"></i> ${meta.category}</span>
+        <span><i class="fas fa-clock"></i> ~${meta.readtime} min de lecture</span>
+    `;
+    document.getElementById('modalBody').innerHTML = tmpl.innerHTML;
+
+    const modal = document.getElementById('readerModal');
+    modal.classList.add('open');
+    modal.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+}
+
+function closeReader() {
+    document.getElementById('readerModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// ---- Filters ----
+document.querySelectorAll('.filter-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const cards = document.querySelectorAll('#articlesGrid .article-card');
+        let count = 0;
+        cards.forEach(card => {
+            const match = filter === 'all' || card.dataset.category === filter;
+            card.classList.toggle('hidden', !match);
+            if (match) count++;
+        });
+        document.getElementById('filterCount').textContent = count + ' article(s)';
+    });
+});
+
+// ---- Keyboard ----
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReader(); });
+
+// ---- Mobile nav ----
+document.getElementById('hamburger')?.addEventListener('click', function() {
+    this.classList.toggle('active');
+    document.getElementById('navMenu').classList.toggle('active');
+});
+
+// ---- Scroll progress ----
+window.addEventListener('scroll', () => {
+    const modal = document.getElementById('readerModal');
+    const src   = modal.classList.contains('open') ? modal : document.documentElement;
+    const pct   = src.scrollTop / (src.scrollHeight - src.clientHeight) * 100;
+    const bar   = document.getElementById('scrollProgress');
+    if (bar) bar.style.width = (isNaN(pct) ? 0 : pct) + '%';
+});
+document.getElementById('readerModal').addEventListener('scroll', function() {
+    const pct = this.scrollTop / (this.scrollHeight - this.clientHeight) * 100;
+    const bar = document.getElementById('scrollProgress');
+    if (bar) bar.style.width = (isNaN(pct) ? 0 : pct) + '%';
+});
+
+// ---- Matrix canvas ----
+(function() {
+    const canvas = document.getElementById('matrix-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    const chars = '0123456789ABCDEF<>{}[]|+=/*%$#@!?;:.,^~ΩΨΦΣΠΛΘΔαβγδεζ';
+    const fs = 13;
+    let cols = Math.floor(canvas.width / fs);
+    let drops = Array(cols).fill(1);
+    setInterval(() => {
+        ctx.fillStyle = 'rgba(2,12,7,0.05)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.font = fs + 'px Share Tech Mono, monospace';
+        for (let i = 0; i < drops.length; i++) {
+            ctx.fillStyle = Math.random() > 0.97 ? '#00e5ff' : '#00ff6a';
+            ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, drops[i] * fs);
+            if (drops[i] * fs > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }, 55);
+    window.addEventListener('resize', () => { cols = Math.floor(canvas.width/fs); drops = Array(cols).fill(1); });
+})();
+
+console.log('%c[BL_ARTICLES] >> 3 articles chargés ✓', 'color:#00ff6a;font-family:monospace;font-size:13px;');
+</script>
+</body>
+</html>

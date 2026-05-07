@@ -19,12 +19,9 @@
   --text-mid:   #a8bcd0;
   --text-dim:   #6a8399;
   --white:      #ffffff;
-  --bg:         #0f1b2d;
-  --surface:    rgba(22, 35, 54, 0.7);
-  --surface-soft: rgba(22, 35, 54, 0.45);
   --border:     rgba(0, 212, 184, 0.15);
   --border-dim: rgba(168, 188, 208, 0.12);
-  --card-bg:    rgba(22, 35, 54, 0.75);
+  --card-bg:    rgba(22, 35, 54, 0.7);
   --radius:     12px;
   --radius-lg:  20px;
   --shadow:     0 8px 32px rgba(0,0,0,0.3);
@@ -35,45 +32,11 @@
   --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
-body.light-theme {
-  --bg: #eef4fb;
-  --surface: rgba(255,255,255,0.92);
-  --surface-soft: rgba(248, 251, 255, 0.7);
-  --border: rgba(15, 27, 45, 0.08);
-  --border-dim: rgba(15, 27, 45, 0.08);
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --text-light: #102136;
-  --text-mid: #4f657f;
-  --text-dim: #6c8097;
-  --shadow: 0 10px 30px rgba(15,27,45,0.08);
-  --shadow-teal: 0 0 25px rgba(0, 212, 184, 0.08);
-}
-
-body.light-theme .navbar { background: rgba(255,255,255,0.92); border-color: rgba(15, 27, 45, 0.08); }
-body.light-theme .navbar.scrolled { background: rgba(255,255,255,0.96); }
-body.light-theme .nav-link { color: var(--text-mid); }
-body.light-theme .nav-link:hover, body.light-theme .nav-link.active { color: var(--teal); background: rgba(0,212,184,0.08); }
-body.light-theme .nav-cta { background: var(--teal); color: var(--navy); }
-body.light-theme .bg-noise { background: radial-gradient(ellipse at 20% 50%, rgba(0,212,184,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(0,150,255,0.08) 0%, transparent 50%); }
-body.light-theme .bg-grid { background-image: linear-gradient(rgba(15,27,45,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(15,27,45,0.08) 1px, transparent 1px); }
-body.light-theme .project-card, body.light-theme .article-card, body.light-theme .skills-panel { backdrop-filter: blur(10px); }
-body.light-theme .project-featured { background: linear-gradient(135deg, rgba(0,212,184,0.08), rgba(255,255,255,0.95)); }
-body.light-theme .skill-group h4 { color: var(--text-mid); }
-body.light-theme .hero-desc, body.light-theme .about-text p, body.light-theme .article-card p, body.light-theme .articles-hero p, body.light-theme .filter-btn { color: var(--text-mid); }
-body.light-theme .article-card-img { background: linear-gradient(135deg, rgba(240, 247, 255, 0.9), rgba(224, 236, 250, 0.9)); }
-body.light-theme .article-card-img .article-icon { opacity: 0.55; }
-body.light-theme .hero-title, body.light-theme .section-title, body.light-theme .project-card h3, body.light-theme .article-card h3 { color: #102136; }
-body.light-theme .section-label, body.light-theme .logo-bracket, body.light-theme .role-tag, body.light-theme .timeline-date { color: var(--teal); }
-body.light-theme .section { background: transparent; }
-body.light-theme .section-alt { background: rgba(239, 246, 255, 0.6); }
-body.light-theme .footer { background: transparent; }
-
-
 /* --- Reset --- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--bg);
+  background: var(--navy);
   color: var(--text-light);
   font-family: var(--font-body);
   font-size: 16px;
@@ -155,31 +118,6 @@ ul { list-style: none; }
   background: var(--text-light); border-radius: 2px;
   transition: var(--transition);
 }
-.theme-toggle {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px;
-  border: 1px solid var(--border-dim);
-  border-radius: 14px;
-  background: var(--surface);
-  color: var(--text-light);
-  cursor: pointer;
-  transition: all var(--transition);
-  font-size: 1rem;
-  margin-right: 0.75rem;
-}
-.theme-toggle:hover {
-  transform: translateY(-1px);
-  border-color: var(--teal);
-  color: var(--teal);
-}
-body.light-theme .theme-toggle {
-  color: var(--text-mid);
-  background: var(--surface-soft);
-}
-body.light-theme .theme-toggle:hover {
-  color: var(--teal);
-}
-
 
 /* --- Containers / Layout --- */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }

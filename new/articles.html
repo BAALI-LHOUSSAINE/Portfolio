@@ -26,9 +26,6 @@
             <li><a href="articles.html" class="nav-link active">Articles</a></li>
             <li><a href="index.html#contact" class="nav-link nav-cta">Contact</a></li>
         </ul>
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-            <i class="fas fa-moon"></i>
-        </button>
         <button class="hamburger" id="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
         </button>
@@ -198,19 +195,6 @@
 // Filter functionality
 const filterBtns = document.querySelectorAll('.filter-btn');
 const articles = document.querySelectorAll('.article-card');
-const articlesGrid = document.getElementById('articlesGrid');
-
-const emptyMessage = document.createElement('div');
-emptyMessage.className = 'articles-empty';
-emptyMessage.innerHTML = '<i class="fas fa-folder-open"></i><p>Aucun article trouvé pour cette catégorie.</p>';
-articlesGrid.appendChild(emptyMessage);
-
-const updateEmptyState = () => {
-    const visibleArticles = Array.from(articles).filter(article => article.style.display !== 'none');
-    emptyMessage.style.display = visibleArticles.length ? 'none' : 'block';
-};
-
-updateEmptyState();
 
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -225,7 +209,6 @@ filterBtns.forEach(btn => {
                 article.style.display = 'none';
             }
         });
-        updateEmptyState();
     });
 });
 </script>

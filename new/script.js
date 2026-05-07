@@ -26,31 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Theme toggle ---
-  const themeToggle = document.getElementById('themeToggle');
-  const userTheme = localStorage.getItem('theme');
-  const systemPrefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-  const currentTheme = userTheme || (systemPrefersLight ? 'light' : 'dark');
-
-  const applyTheme = theme => {
-    const isLight = theme === 'light';
-    document.body.classList.toggle('light-theme', isLight);
-    if (themeToggle) {
-      themeToggle.innerHTML = isLight ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-      themeToggle.setAttribute('aria-label', isLight ? 'Activer le mode sombre' : 'Activer le mode clair');
-    }
-    localStorage.setItem('theme', theme);
-  };
-
-  applyTheme(currentTheme);
-
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const nextTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
-      applyTheme(nextTheme);
-    });
-  }
-
   // --- Active nav link on scroll ---
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
